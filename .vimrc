@@ -1,4 +1,5 @@
 set nocompatible 
+syntax on
 set undofile
 set undodir=~/.vim/undo
 set number
@@ -9,3 +10,4 @@ set autoindent
 set smartindent
 set showcmd
 set wildmenu
+set ruler
