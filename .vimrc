@@ -16,6 +16,7 @@ set shiftwidth=4
 set showcmd
 set wildmenu
 set hls
+set backspace=indent,eol,start
 
 "Navigation
 
