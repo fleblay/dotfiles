@@ -17,6 +17,7 @@ set showcmd
 set wildmenu
 set hls
 set backspace=indent,eol,start
+set rnu
 
 "Navigation
 
