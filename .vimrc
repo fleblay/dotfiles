@@ -21,10 +21,23 @@ set rnu
 
 "Navigation
 
+nn s <Nop>
 nn ss :ls<CR>:b<space>
 nn sn :bn<CR>
 nn sp :bp<CR>
 
 "Macros
 
-let @p = 'Iprintf("A : >%d<\n", €ıaF";lylA€ıapA);€ıa'
+"smart printf
+let @p = '0iprintf(">%<\n", €ıaA);€ıahhbvey2F"pa : €ıaf%a'
+
+"Autocmd for tags files
+
+autocmd BufEnter *.h,*.c :silent !ctags -R
+autocmd BufWritePost *.h,*.c :silent !ctags -R
+autocmd VimLeave *.h,*.c :silent !rm tags
+
+" Usefull
+" arg/argadd/argdo %s/patern/replace/ge
+" vimgrep pattern ## (## replaced by arglist)
+" **/*.c list every c file in dir and subdir
