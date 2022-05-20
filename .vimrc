@@ -25,6 +25,8 @@ nn s <Nop>
 nn ss :ls<CR>:b<space>
 nn sn :bn<CR>
 nn sp :bp<CR>
+nn ssn :cn<CR>
+nn ssp :cp<CR>
 
 "Macros
 
@@ -33,9 +35,9 @@ let @p = '0iprintf(">%<\n", €ıaA);€ıahhbvey2F"pa : €ıaf%a'
 
 "Autocmd for tags files
 
-autocmd BufEnter *.h,*.c :silent !ctags -R
-autocmd BufWritePost *.h,*.c :silent !ctags -R
-autocmd VimLeave *.h,*.c :silent !rm tags
+autocmd BufEnter *.h,*.c,*.hpp,*.cpp :silent !ctags -R
+autocmd BufWritePost *.h,*.c,*.hpp,*.cpp :silent !ctags -R
+autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp :silent !rm tags
 
 " Usefull
 " arg/argadd/argdo %s/patern/replace/ge
