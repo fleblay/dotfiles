@@ -8,15 +8,18 @@ set backup
 set backupdir=~/.vim/backup/,.
 set number
 set ruler
-set tabstop=4
-set shiftround
+set shiftround "round indent to multiple of shiftwidth
 set autoindent
 set smartindent
-set shiftwidth=4
+set shiftwidth=4 "number of spaces to used for each step of autoindent
+set tabstop=4 "number of spaces a <TAB> in the file counts for
+set noexpandtab "do not expand tab when indenting with > or <
 set showcmd
 set wildmenu
-set hls
+set hlsearch "highlight previous search pattern
+set incsearch "show what is already matched when typing search pattern 
 set backspace=indent,eol,start
+set hidden "to allow to change buffer without having to save changes
 set rnu
 
 "Navigation
@@ -30,16 +33,110 @@ nn ssp :cp<CR>
 
 "Macros
 
-"smart printf
+"smart printf. magic command : C-o to send normal mode command while insert
 let @p = '0iprintf(">%<\n", €ýaA);€ýahhbvey2F"pa : €ýaf%a'
 
 "Autocmd for tags files
-
 autocmd BufEnter *.h,*.c,*.hpp,*.cpp :silent !ctags -R
 autocmd BufWritePost *.h,*.c,*.hpp,*.cpp :silent !ctags -R
 autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp :silent !rm tags
 
-" Usefull
+"Syntax on for tpp files
+autocmd BufEnter *.tpp :setlocal filetype=cpp
+
+" SINGLE KEYS
+" K for man pages. [n]K for specific section
+" z to place current line on top
+
+" FILE INFOS
+" gC-g ou C-g ou 1C-g for full name of file
+
+" DELETION
+" X to del previous char
+" "qcw to delete word inside register q
+
+" MOVE AMONG FILES
+" :ju show jump list
+" C-o et C-i to move to previous and next position in jump list 
+" */# to go to next/previous occurence of word in normal mode
+" d/word to delete from postion till word
+" s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
+
+" WINDOWS
+" C-ww to switch among open windows
+" _ to maximize height, | to maximize width
+" C-w + H,J,K,L to move window with whole height/width
+" :ba[ll] to open all buffers in windows
+" windo same as bufdo for windows
+
+" m{a-z} set mark at cursor position
+" `{a-z} jump to mark {a-z} in current buffer  
+
+" UPPER AND LOWERCASE
+" ~ to switch case -> g~MOTION or g~~ for whole line
+" U for uppercase and u for lowercase -> gUU
+
+" REGISTERS
+" :reg z1 to show only reg z and 1
+" "_ is blackhole register
+" "Ayy to append to register a whole curent line
+" + is clipboard buffer -> from vim and to vim !
+
+" OPTIONS
+" set is? to know status of incsearch
+" set is! to toggle status of incsearch
+
+" MODES SWITCHES
+" norm + cmd in command mode to use normal command in command mode. Usefull after visual selection -> norm i // to comment in c
+
+" MACROS
+" C-v to enter litteral char when editing a macro
+" C-O to escape insert mode for next command when typing a macro
+
+" VISUAL MODE
+" o to go to other end
+" O to got to other corner in visual block on same line
+" :ce[nter] to center with base of 80 char. :center 40 for base of 40
+" :le[ft] 5 to align left minus 5. Same with ri[ght]
+" r useful with visual block
+
+" INDENT
+" >ip to indent whole paragraph to right
+
+" MAPPING
+" :map to show mappings
+
+" BUFFERS
+" bf/bl for first or last buffer
+" C-6 or :b# for alternate buffer
+" badd file instead of e file to add file without switching directly on it
+" range or %bd to close range or all buffers
+" bufdo + cmd to do in all buffers -> USEFUL !!!!
+" | to make commands one after another
+" :E to open navigation buffer (:bd to close without using)
+
+" TERMINAL MODE
+" C-w + N to switch to insertion. i to return to terminal
+
+" INSERT MODE
+" C-r and register name to paste
+" C-p autocomplete
+
+" READ FROM / COPY FROM
+" 0:r !ls to read from ls and paste at beginning of file
+" C-r C-w to paste current word in command mode -> USEFULL
+" C-r + register in command or insertion to paste reg
+" [range]t to copy range to current position
+
+" CODE HELPERS
+" C-a/C-x to increment or decrement
+
+" POSITON IN CURRENT FILE
+" zt/zb to move window so that current line is at top of bottom
+
+" SEARCH AND REPLACE
+" # can also be used as a separator
 " arg/argadd/argdo %s/patern/replace/ge
 " vimgrep pattern ## (## replaced by arglist)
-" **/*.c list every c file in dir and subdir
+" **/*.c *.c list every c file in dir and subdir
+" %s/xxx/\=expand('%:t:r')/g replace every xxx by filename tail and only root ie /bin/file.c -> file
