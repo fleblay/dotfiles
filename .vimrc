@@ -21,6 +21,8 @@ set incsearch "show what is already matched when typing search pattern
 set backspace=indent,eol,start
 set hidden "to allow to change buffer without having to save changes
 set rnu
+set ignorecase "ignore case while searching
+set smartcase "overrides smartcase if search patterns contains upper case char"
 
 "Navigation
 
@@ -59,6 +61,7 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " :ju show jump list
 " C-o et C-i to move to previous and next position in jump list 
 " */# to go to next/previous occurence of word in normal mode
+" g*/g# same line above, but also among can be incomplete word
 " d/word to delete from postion till word
 " s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
 
@@ -91,7 +94,7 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " MACROS
 " C-v to enter litteral char when editing a macro
-" C-O to escape insert mode for next command when typing a macro
+" C-O to escape insert mode for next command when typing a macro -> USEFULL
 
 " VISUAL MODE
 " o to go to other end
@@ -120,7 +123,11 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " INSERT MODE
 " C-r and register name to paste
-" C-p autocomplete
+" C-p autocomplete word
+
+" INSERT MODE COMPLETION
+" C-x C-l autocomplete line -> USEFULL
+" C-x C-f autocompalte filenames -> USEFULL
 
 " READ FROM / COPY FROM
 " 0:r !ls to read from ls and paste at beginning of file
@@ -133,6 +140,14 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " POSITON IN CURRENT FILE
 " zt/zb to move window so that current line is at top of bottom
+
+" HELP
+" :h to_search<C-d> for menu of available choices -> USEFULL
+
+" G MAGIC
+" ga display hex and more value of char under cursor
+" gf open filename under corsor -> USEFULL
+" G=gg to reindent whole document (from bottom up)
 
 " SEARCH AND REPLACE
 " # can also be used as a separator
