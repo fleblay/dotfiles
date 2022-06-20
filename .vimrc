@@ -149,6 +149,11 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " gf open filename under corsor -> USEFULL
 " G=gg to reindent whole document (from bottom up)
 
+" SHELL OUTPUT
+" .!sh execute commande on current line in shell and paste ouput
+" !! in normal mode + command. ex !!ls -> SUPER USEFULL
+" !! works with selection in visual mode ex !!sort or grep word !!tr -d A -> SUPER USEFULL
+
 " SEARCH AND REPLACE
 " # can also be used as a separator
 " arg/argadd/argdo %s/patern/replace/ge
