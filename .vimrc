@@ -1,5 +1,6 @@
 set nocompatible 
-colorscheme ron
+set background=dark
+colorscheme gruvbox
 syntax on
 set history=1000
 set undofile
@@ -23,6 +24,11 @@ set hidden "to allow to change buffer without having to save changes
 set rnu
 set ignorecase "ignore case while searching
 set smartcase "overrides smartcase if search patterns contains upper case char"
+
+"Preparatory Work
+"Create a directory at home name .vim with subfolders backup colors undo
+"Get gruvbox theme from https://github.com/morhetz/gruvbox
+"Copy colors/gruvbox.vim in ~/.vim/colors dir
 
 "Navigation
 
