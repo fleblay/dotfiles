@@ -52,6 +52,11 @@ autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp :silent !rm tags
 "Syntax on for tpp files
 autocmd BufEnter *.tpp :setlocal filetype=cpp
 
+" coloured extra whitespaces
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$\| \+\ze\t\| ^\t*\zs \+/
+
+
 " SINGLE KEYS
 " K for man pages. [n]K for specific section
 " z to place current line on top
@@ -166,3 +171,9 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " vimgrep pattern ## (## replaced by arglist)
 " **/*.c *.c list every c file in dir and subdir
 " %s/xxx/\=expand('%:t:r')/g replace every xxx by filename tail and only root ie /bin/file.c -> file
+
+" REGEX
+" \0 for previous match
+" <cword> for word under cursor
+" \<pattern\> for exact pattern
+" Ctrl-f to insert a normal mode move. Ctrl-c to end -> SUPER USEFULL
