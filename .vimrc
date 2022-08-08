@@ -70,11 +70,20 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " MOVE AMONG FILES
 " :ju show jump list
-" C-o et C-i to move to previous and next position in jump list 
+" C-o et C-i to move to previous and next position in jump list
+" :changes to show list of changes
+" g;/g, to go to next/previous change
 " */# to go to next/previous occurence of word in normal mode
 " g*/g# same line above, but also among can be incomplete word
 " d/word to delete from postion till word
 " s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
+
+" MARKS
+" `` postion before last jump action, or where last use of m`/m'
+" m` or m' to add a jump manually (USEFULL for using with C-o)
+" m{a-z} set mark at cursor position
+" `{a-z} jump to mark {a-z} in current buffer at exact location (mm and `m USEFULL)
+" '{a-z} jump to mark {a-z} in current buffer at first non blank char
 
 " WINDOWS
 " C-ww to switch among open windows
@@ -82,9 +91,6 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " C-w + H,J,K,L to move window with whole height/width
 " :ba[ll] to open all buffers in windows
 " windo same as bufdo for windows
-
-" m{a-z} set mark at cursor position
-" `{a-z} jump to mark {a-z} in current buffer  
 
 " UPPER AND LOWERCASE
 " ~ to switch case -> g~MOTION or g~~ for whole line
