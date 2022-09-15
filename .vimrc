@@ -1,4 +1,4 @@
-set nocompatible 
+set nocompatible
 set background=dark
 colorscheme gruvbox
 syntax on
@@ -18,7 +18,7 @@ set noexpandtab "do not expand tab when indenting with > or <
 set showcmd
 set wildmenu
 set hlsearch "highlight previous search pattern
-set incsearch "show what is already matched when typing search pattern 
+set incsearch "show what is already matched when typing search pattern
 set backspace=indent,eol,start
 set hidden "to allow to change buffer without having to save changes
 set rnu
@@ -154,6 +154,7 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " CODE HELPERS
 " C-a/C-x to increment or decrement
+" g C-a to increment all lines on visual selection -> USEFULL
 
 " POSITON IN CURRENT FILE
 " zt/zb to move window so that current line is at top of bottom
@@ -177,6 +178,7 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " vimgrep pattern ## (## replaced by arglist)
 " **/*.c *.c list every c file in dir and subdir
 " %s/xxx/\=expand('%:t:r')/g replace every xxx by filename tail and only root ie /bin/file.c -> file
+" add /e to jump to end of word when searchin : /word_searched/e
 
 " REGEX
 " \0 for previous match
