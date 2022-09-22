@@ -78,7 +78,8 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " d/word to delete from postion till word
 " s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
 " H,L,M to jump to top, bottom or middle of current view -> USEFULL
-" ]m,]M,[m,[M, to jump to next function start/end, previous function start/end -> USEFULL
+" ]m,]M,[m,[M, to jump to next function start/end, previous function start/end
+" ]],][,[[,[], to jump to next function start/end, previous section start/end -> SUPER USEFULL
 " C-e/C-y to scroll view down/up
 
 " MARKS
