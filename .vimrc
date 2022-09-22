@@ -77,6 +77,9 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " g*/g# same line above, but also among can be incomplete word
 " d/word to delete from postion till word
 " s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
+" H,L,M to jump to top, bottom or middle of current view -> USEFULL
+" ]m,]M,[m,[M, to jump to next function start/end, previous function start/end -> USEFULL
+" C-e/C-y to scroll view down/up
 
 " MARKS
 " `` postion before last jump action, or where last use of m`/m'
@@ -157,7 +160,7 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " g C-a to increment all lines on visual selection -> USEFULL
 
 " POSITON IN CURRENT FILE
-" zt/zb to move window so that current line is at top of bottom
+" zt/zb/zz to move window so that current line is at top/bottom/middle
 
 " HELP
 " :h to_search<C-d> for menu of available choices -> USEFULL
