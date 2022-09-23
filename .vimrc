@@ -189,3 +189,6 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " <cword> for word under cursor
 " \<pattern\> for exact pattern
 " Ctrl-f to insert a normal mode move. Ctrl-c to end -> SUPER USEFULL
+
+" SAVING AND QUITTING
+" ZZ is same as :x
