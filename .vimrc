@@ -77,9 +77,10 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " g*/g# same line above, but also among can be incomplete word
 " d/word to delete from postion till word
 " s/p/b/B with a/i for sentence/paragraph/braces/curly_braces
-" H,L,M to jump to top, bottom or middle of current view -> USEFULL
-" ]m,]M,[m,[M, to jump to next function start/end, previous function start/end
+" H,L,M to jump to top, bottom or middle of current view (offset possible) -> USEFULL
+" ]m,]M,[m,[M, to jump to next function start/end, previous function start/end -> USEFULL
 " ]],][,[[,[], to jump to next function start/end, previous section start/end -> SUPER USEFULL
+" gm/gM : go to middle of screen/text on current line -> SUPER USEFULL
 " C-e/C-y to scroll view down/up
 
 " MARKS
@@ -192,3 +193,4 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 " SAVING AND QUITTING
 " ZZ is same as :x
+" C-o C-o : reopen last edited file -> USEFULL at startup
