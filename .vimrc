@@ -21,9 +21,10 @@ set hlsearch "highlight previous search pattern
 set incsearch "show what is already matched when typing search pattern
 set backspace=indent,eol,start
 set hidden "to allow to change buffer without having to save changes
-set rnu
+set relativenumber
 set ignorecase "ignore case while searching
 set smartcase "overrides smartcase if search patterns contains upper case char"
+set wrapmargin=3
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
@@ -192,5 +193,9 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 " Ctrl-f to insert a normal mode move. Ctrl-c to end -> SUPER USEFULL
 
 " SAVING AND QUITTING
-" ZZ is same as :x
+" ZZ is same as :x -> USEFULL
 " C-o C-o : reopen last edited file -> USEFULL at startup
+
+"VI and VIM Editor notes
+" :sh to open a shell within wim (easier thant Ctrl-Z and fg)
+
