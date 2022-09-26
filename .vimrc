@@ -198,4 +198,3 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 "VI and VIM Editor notes
 " :sh to open a shell within wim (easier thant Ctrl-Z and fg)
-
