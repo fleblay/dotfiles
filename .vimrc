@@ -23,8 +23,9 @@ set backspace=indent,eol,start
 set hidden "to allow to change buffer without having to save changes
 set relativenumber
 set ignorecase "ignore case while searching
-set smartcase "overrides smartcase if search patterns contains upper case char"
+set smartcase "overrides smartcase if search patterns contains upper case char
 set wrapmargin=3
+set foldcolumn=2 "adds a column to far left to show fold info
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
