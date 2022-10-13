@@ -24,8 +24,10 @@ set hidden "to allow to change buffer without having to save changes
 set relativenumber
 set ignorecase "ignore case while searching
 set smartcase "overrides smartcase if search patterns contains upper case char
-set wrapmargin=3
-set foldcolumn=2 "adds a column to far left to show fold info
+set wrapmargin=3 "wrap text if 3 char away from right margin
+set textwidth=100 "wrap text if longer than 120 char
+set foldcolumn=3 "adds a column to far left to show fold info
+set foldmethod=syntax
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
