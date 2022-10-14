@@ -28,6 +28,7 @@ set wrapmargin=3 "wrap text if 3 char away from right margin
 set textwidth=100 "wrap text if longer than 120 char
 set foldcolumn=3 "adds a column to far left to show fold info
 set foldmethod=syntax
+set winwidth=100 "minimal size for current window. Resize at expand of other windows
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
