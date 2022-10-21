@@ -21,6 +21,7 @@ set hlsearch "highlight previous search pattern
 set incsearch "show what is already matched when typing search pattern
 set backspace=indent,eol,start
 set hidden "to allow to change buffer without having to save changes
+"set autowrite ???
 set relativenumber
 set ignorecase "ignore case while searching
 set smartcase "overrides smartcase if search patterns contains upper case char
@@ -46,6 +47,15 @@ nn ssp :cp<CR>
 
 "Macros
 
+"Lazy HPP rename (So so, need to find a way to reuse capture group or use register as search pattern)
+":1,2s/\(\s\)\@<=\w\{-1,}\(_\)\@=/\=toupper(expand('%:t:r'))/
+"OR
+" e newclass.hpp
+":0r oldclass.hpp
+" let @c = 'oldclass'
+" exe '3,$%s/' . @c . '/=expand('%:h:r')/g'
+" %s//\U~/gi
+
 "smart printf. magic command : C-o to send normal mode command while insert
 let @p = '0iprintf(">%<\n", €ýaA);€ýahhbvey2F"pa : €ýaf%a'
 
@@ -56,6 +66,9 @@ autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp :silent !rm tags
 
 "Syntax on for tpp files
 autocmd BufEnter *.tpp :setlocal filetype=cpp
+
+"Set cindent for c files
+autocmd BufEnter *.c :setlocal cindent
 
 " coloured extra whitespaces
 :highlight ExtraWhitespace ctermbg=red guibg=red
