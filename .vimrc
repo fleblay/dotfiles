@@ -38,22 +38,23 @@ set winwidth=100 "minimal size for current window. Resize at expand of other win
 
 "Navigation
 
-nn s <Nop>
-nn ss :ls<CR>:b<space>
-nn sn :bn<CR>
-nn sp :bp<CR>
-nn ssn :cn<CR>
-nn ssp :cp<CR>
+nnoremap s <Nop>
+nnoremap ss :ls<CR>:b<space>
+nnoremap sn :bn<CR>
+nnoremap sp :bp<CR>
+nnoremap ssn :cn<CR>
+nnoremap ssp :cp<CR>
 
 "Macros
 
 "Lazy HPP rename (So so, need to find a way to reuse capture group or use register as search pattern)
 ":1,2s/\(\s\)\@<=\w\{-1,}\(_\)\@=/\=toupper(expand('%:t:r'))/
 "OR
+" :let @c = expand('%:t:r')
 " e newclass.hpp
 ":0r oldclass.hpp
 " let @c = 'oldclass'
-" exe '3,$%s/' . @c . '/=expand('%:h:r')/g'
+" exe '3,$%s/' . @c . '/=expand('%:t:r')/g'
 " %s//\U~/gi
 
 "smart printf. magic command : C-o to send normal mode command while insert
