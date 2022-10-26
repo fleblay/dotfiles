@@ -19,27 +19,35 @@ set showcmd
 set wildmenu
 set hlsearch "highlight previous search pattern
 set incsearch "show what is already matched when typing search pattern
-set backspace=indent,eol,start
+set backspace=indent,eol,start "allows to backspace over autoindent, line breaks and start of insert
 set hidden "to allow to change buffer without having to save changes
-"set autowrite ???
 set relativenumber
 set ignorecase "ignore case while searching
-set smartcase "overrides smartcase if search patterns contains upper case char
+set smartcase "overrides ignorecase if search patterns contains upper case char
 set wrapmargin=3 "wrap text if 3 char away from right margin
 set textwidth=100 "wrap text if longer than 120 char
-set foldcolumn=3 "adds a column to far left to show fold info
+set foldcolumn=1 "adds a column to far left to show fold info
 set foldmethod=syntax
 set winwidth=100 "minimal size for current window. Resize at expand of other windows
+set laststatus=2 "always display status bar
+set confirm "Ask to save files instead of failing a command due to unsaved changes
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
 "Get gruvbox theme from https://github.com/morhetz/gruvbox
 "Copy colors/gruvbox.vim in ~/.vim/colors dir
 
-"Navigation
+"Autocomplete
 
+"Navigation windows
+nnoremap <Space> <C-W>
+
+"Disable hls until next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+"Buffer and Quickfix list navigation
 nnoremap s <Nop>
-nnoremap ss :ls<CR>:b<space>
+nnoremap sl :ls<CR>:b<space>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
 nnoremap ssn :cn<CR>
@@ -216,3 +224,10 @@ autocmd BufEnter *.c :setlocal cindent
 
 "VI and VIM Editor notes
 " :sh to open a shell within wim (easier thant Ctrl-Z and fg)
+
+set path=. "find path
+let &makeprg = 'make $* 1>/dev/null' "& to have a local var
+au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/*srcs/** "add path location for find util
+set wildignore=.git "wildmenu results to hide
+nn sf :find *
+nn st :tjump /
