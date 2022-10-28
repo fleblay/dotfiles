@@ -31,6 +31,7 @@ set foldmethod=syntax
 set winwidth=100 "minimal size for current window. Resize at expand of other windows
 set laststatus=2 "always display status bar
 set confirm "Ask to save files instead of failing a command due to unsaved changes
+set cmdheight=2
 
 "Preparatory Work
 "Create a directory at home name .vim with subfolders backup colors undo
@@ -45,13 +46,28 @@ nnoremap <Space> <C-W>
 "Disable hls until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-"Buffer and Quickfix list navigation
+"Find setup
+set path=. "find path
+au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/*srcs/** "add path location for find util
+set wildignore=.git "wildmenu results to hide
+set wildignorecase
+
+"Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sl :ls<CR>:b<space>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
 nnoremap ssn :cn<CR>
 nnoremap ssp :cp<CR>
+nnoremap sf :find *
+nnoremap st :tjump /
+
+"Save
+nnoremap sw :wa<CR>
+
+"Make
+let &makeprg = 'make $* 1>/dev/null' "& to have a local var
+nnoremap sm :make<CR>
 
 "Macros
 
@@ -224,10 +240,3 @@ autocmd BufEnter *.c :setlocal cindent
 
 "VI and VIM Editor notes
 " :sh to open a shell within wim (easier thant Ctrl-Z and fg)
-
-set path=. "find path
-let &makeprg = 'make $* 1>/dev/null' "& to have a local var
-au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/*srcs/** "add path location for find util
-set wildignore=.git "wildmenu results to hide
-nn sf :find *
-nn st :tjump /
