@@ -46,9 +46,10 @@ nnoremap <Space> <C-W>
 "Disable hls until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-"Find setup
+"Find and grep setup
 set path=. "find path
-au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/*srcs/** "add path location for find util
+au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/** "add path location for find util
+au FileType c,hpp,cpp,make argadd! $PWD/includes/* $PWD/srcs/* $PWD/srcs/**/* | argdedupe "add path location for find util
 set wildignore=.git "wildmenu results to hide
 set wildignorecase
 
@@ -57,10 +58,15 @@ nnoremap s <Nop>
 nnoremap sl :ls<CR>:b<space>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
-nnoremap ssn :cn<CR>
-nnoremap ssp :cp<CR>
 nnoremap sf :find *
 nnoremap st :tjump /
+nnoremap sg :grep!<Space><Space><Space>##<Left><Left><Left><Left>
+
+nnoremap ssn :cn<CR>
+nnoremap ssp :cp<CR>
+nnoremap ssg :.cc<CR>
+nnoremap sso :copen<CR>
+nnoremap ssc :cclose<CR>
 
 "Save
 nnoremap sw :wa<CR>
