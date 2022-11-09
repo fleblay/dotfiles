@@ -48,8 +48,11 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 "Find and grep setup
 set path=. "find path
-au FileType c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/** "add path location for find util
-au FileType c,hpp,cpp,make argadd! $PWD/includes/* $PWD/srcs/* $PWD/srcs/**/* | argdedupe "add path location for find util
+"add path location for find util
+au FileType h,c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/**
+"add all files in order to user grep ##
+au FileType h,c,make argadd! $PWD/includes/*.h $PWD/srcs/**/*.c "| argdedupe
+au FileType hpp,cpp,make argadd! $PWD/includes/*.hpp $PWD/srcs/**/*.cpp "| argdedupe
 set wildignore=.git "wildmenu results to hide
 set wildignorecase
 
