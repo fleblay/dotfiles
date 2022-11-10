@@ -1,6 +1,7 @@
 set nocompatible
 set background=dark
 colorscheme gruvbox
+filetype plugin indent on "set on filetype detection
 syntax on
 set history=1000
 set undofile
@@ -51,8 +52,9 @@ set path=. "find path
 "add path location for find util
 au FileType h,c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/**
 "add all files in order to user grep ##
-au FileType h,c,make argadd! $PWD/includes/*.h $PWD/srcs/**/*.c "| argdedupe
-au FileType hpp,cpp,make argadd! $PWD/includes/*.hpp $PWD/srcs/**/*.cpp "| argdedupe
+au FileType h,c,make argadd! $PWD/includes/*.h $PWD/srcs/**.c | argdedupe
+au FileType hpp,cpp,make argadd! $PWD/includes/*.hpp $PWD/srcs/**.cpp | argdedupe
+
 set wildignore=.git "wildmenu results to hide
 set wildignorecase
 
