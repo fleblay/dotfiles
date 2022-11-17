@@ -52,14 +52,15 @@ set path=. "find path
 "add path location for find util
 au FileType h,c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/**
 "add all files in order to user grep ##
-au FileType h,c,make argadd! $PWD/includes/*.h $PWD/srcs/**.c | argdedupe
-au FileType hpp,cpp,make argadd! $PWD/includes/*.hpp $PWD/srcs/**.cpp | argdedupe
+au FileType h,c if !&diff | argadd! $PWD/includes/*.h $PWD/srcs/**.c | argdedupe | endif
+au FileType hpp,cpp if !&diff | argadd! $PWD/includes/*.hpp $PWD/srcs/**.cpp | argdedupe | endif
 
 set wildignore=.git "wildmenu results to hide
 set wildignorecase
 
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
+nnoremap sa :b#<CR>
 nnoremap sl :ls<CR>:b<space>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
