@@ -6,5 +6,5 @@ git config --global merge.tool vimdiff
 git config --global core.autocrlf input
 git config --global alias.mylog 'log --pretty=format:"h %ad | %s%d [%an]" --graph --date=short'
 git config --global commit.template ~/.gitmessagetemplate
-git config --global alias.commit 'commit --verbose --verbose'
+git config --global alias.vcommit 'commit --verbose --verbose'
 git config --global help.autocorrect 30

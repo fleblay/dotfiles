@@ -77,6 +77,9 @@ nnoremap ssc :cclose<CR>
 "Save
 nnoremap sw :wa<CR>
 
+"Shell
+nnoremap sb :.w !bash<CR>
+
 "Make
 let &makeprg = 'make $* 1>/dev/null' "& to have a local var
 nnoremap sm :make<CR>
