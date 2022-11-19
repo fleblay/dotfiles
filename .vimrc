@@ -32,14 +32,11 @@ set foldmethod=syntax
 set winwidth=100 "minimal size for current window. Resize at expand of other windows
 set laststatus=2 "always display status bar
 set confirm "Ask to save files instead of failing a command due to unsaved changes
-set cmdheight=2
+set cmdheight=2 "Bigger command height to avoid "Press Enter...
 
 "Preparatory Work
-"Create a directory at home name .vim with subfolders backup colors undo
-"Get gruvbox theme from https://github.com/morhetz/gruvbox
-"Copy colors/gruvbox.vim in ~/.vim/colors dir
-
-"Autocomplete
+"mkdir -p ~/.vim/undo ~/.vim/backup ~/.vim/pack/default/start
+"git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
 
 "Navigation windows
 nnoremap <Space> <C-W>
