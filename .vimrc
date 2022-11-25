@@ -78,7 +78,9 @@ nnoremap sw :wa<CR>
 nnoremap sb :.w !bash<CR>
 
 "Make
-let &makeprg = 'make $* 1>/dev/null' "& to have a local var
+"SSH problem -> not populating quickfix list with error
+"let &makeprg = 'make $* 1>/dev/null' "& to have a local var
+let &makeprg = 'make $*' "& to have a local var
 nnoremap sm :make<CR>
 
 "Macros
