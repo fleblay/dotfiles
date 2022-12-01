@@ -8,3 +8,4 @@ git config --global alias.mylog 'log --pretty=format:"h %ad | %s%d [%an]" --grap
 git config --global commit.template ~/.gitmessagetemplate
 git config --global alias.vcommit 'commit --verbose --verbose'
 git config --global help.autocorrect 30
+git config --global difftool.prompt false
