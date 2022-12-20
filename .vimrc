@@ -46,11 +46,18 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 "Find and grep setup
 set path=. "find path
+set shell=/bin/bash\ -O\ globstar
+
 "add path location for find util
-au FileType h,c,hpp,cpp,make setl path+=$PWD/includes/,$PWD/srcs/**
+au FileType h,c,hpp,cpp,make setl path+=$PWD/inc*/**/,$PWD/src*/**/
 "add all files in order to user grep ##
-au FileType h,c if !&diff | argadd! $PWD/includes/*.h $PWD/srcs/**.c | argdedupe | endif
-au FileType hpp,cpp if !&diff | argadd! $PWD/includes/*.hpp $PWD/srcs/**.cpp | argdedupe | endif
+if v:version > 801
+	au FileType h,c if !&diff | argadd! $PWD/inc*/**/*.h $PWD/src*/**/*.c | argdedupe | endif
+	au FileType hpp,cpp,tpp if !&diff | argadd! $PWD/inc*/**/*.?pp $PWD/src*/**/*.cpp | argdedupe | endif
+else
+	au FileType h,c if !&diff | argdelete * | argadd! $PWD/inc*/**/*.h $PWD/src*/**/*.c | endif
+	au FileType hpp,cpp,tpp if !&diff | argdelete * | argadd! $PWD/inc*/**/*.?pp $PWD/src*/**/*.cpp | endif
+endif
 
 set wildignore=.git "wildmenu results to hide
 set wildignorecase
@@ -99,9 +106,9 @@ nnoremap sm :make<CR>
 let @p = '0iprintf(">%<\n", €ýaA);€ýahhbvey2F"pa : €ýaf%a'
 
 "Autocmd for tags files
-autocmd BufEnter *.h,*.c,*.hpp,*.cpp :silent !ctags -R
-autocmd BufWritePost *.h,*.c,*.hpp,*.cpp :silent !ctags -R
-autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp :silent !rm tags
+autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.tpp :silent !ctags -R
+autocmd BufWritePost *.h,*.c,*.hpp,*.cpp,*.tpp :silent !ctags -R
+autocmd VimLeave *.h,*.c,*.c,*.hpp,*.cpp,*.tpp :silent !rm tags
 
 "Syntax on for tpp files
 autocmd BufEnter *.tpp :setlocal filetype=cpp
@@ -228,6 +235,8 @@ autocmd BufEnter *.c :setlocal cindent
 " ga display hex and more value of char under cursor
 " gf open filename under corsor -> USEFULL
 " G=gg to reindent whole document (from bottom up)
+" g;/g, go to previous/next changelist position -> USEFULL
+" gi go to last edit in file and starts insert mode -> USEFULL
 
 " SHELL OUTPUT
 " .!sh execute commande on current line in shell and paste ouput
