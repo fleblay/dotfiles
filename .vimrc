@@ -49,17 +49,17 @@ set path=. "find path
 set shell=/bin/bash\ -O\ globstar
 
 "add path location for find util
-au FileType h,c,hpp,cpp,make setl path+=$PWD/inc*/**/,$PWD/src*/**/
+au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/**
 "add all files in order to user grep ##
 if v:version > 801
-	au FileType h,c if !&diff | argadd! $PWD/inc*/**/*.h $PWD/src*/**/*.c | argdedupe | endif
-	au FileType hpp,cpp,tpp if !&diff | argadd! $PWD/inc*/**/*.?pp $PWD/src*/**/*.cpp | argdedupe | endif
+	au FileType h,c if !&diff | argadd! $PWD/inc*/**/*.h $PWD/s*rc*/**/*.c | argdedupe | endif
+	au FileType hpp,cpp,tpp if !&diff | argadd! $PWD/inc*/**/*.?pp $PWD/s*rc*/**/*.cpp | argdedupe | endif
 else
-	au FileType h,c if !&diff | argdelete * | argadd! $PWD/inc*/**/*.h $PWD/src*/**/*.c | endif
-	au FileType hpp,cpp,tpp if !&diff | argdelete * | argadd! $PWD/inc*/**/*.?pp $PWD/src*/**/*.cpp | endif
+	au FileType h,c if !&diff | argdelete * | argadd! $PWD/inc*/**/*.h $PWD/s*rc*/**/*.c | endif
+	au FileType hpp,cpp,tpp if !&diff | argdelete * | argadd! $PWD/inc*/**/*.?pp $PWD/s*rc*/**/*.cpp | endif
 endif
 
-set wildignore=.git "wildmenu results to hide
+set wildignore=.git,*.o,*.d "wildmenu results to hide
 set wildignorecase
 
 "Buffer, Quickfix list, tag and file navigation
