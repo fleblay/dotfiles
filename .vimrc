@@ -49,7 +49,8 @@ set path=. "find path
 set shell=/bin/bash\ -O\ globstar
 
 "add path location for find util
-au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/**
+"au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/** -> to fix
+au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/inc,$PWD/src
 "add all files in order to user grep ##
 if v:version > 801
 	au FileType h,c if !&diff | argadd! $PWD/inc*/**/*.h $PWD/s*rc*/**/*.c | argdedupe | endif
