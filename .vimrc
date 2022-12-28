@@ -66,6 +66,7 @@ set wildignorecase
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
+nnoremap sd :bn<CR>:bdelete#<CR>
 nnoremap sl :ls<CR>:b<space>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
