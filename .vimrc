@@ -86,6 +86,12 @@ nnoremap sw :wa<CR>
 "Shell
 nnoremap sb :.w !bash<CR>
 
+"Insert Mode : More ergonomic completion
+inoremap <C-k> <C-n>
+inoremap <C-l> <C-p>
+inoremap <C-n> <C-k>
+inoremap <C-p> <C-l>
+
 "Make
 "SSH problem -> not populating quickfix list with error
 "let &makeprg = 'make $* 1>/dev/null' "& to have a local var
