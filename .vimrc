@@ -91,6 +91,10 @@ inoremap <C-k> <C-n>
 inoremap <C-l> <C-p>
 inoremap <C-n> <C-k>
 inoremap <C-p> <C-l>
+cnoremap <C-k> <C-n>
+cnoremap <C-l> <C-p>
+cnoremap <C-n> <C-k>
+cnoremap <C-p> <C-l>
 
 "Make
 "SSH problem -> not populating quickfix list with error
