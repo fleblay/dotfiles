@@ -1,6 +1,16 @@
 set nocompatible
 set background=dark
-colorscheme gruvbox
+set runtimepath+=~/.vim/pack/default/start/gruvbox/ "for neovim to find gruvbox outside .config/nvim
+if filereadable(expand("~/.vim/pack/default/start/gruvbox/colors/gruvbox.vim"))
+	colorscheme gruvbox
+else
+	echo "Unable to locate gruvbox colorscheme -> Making preparatory work"
+	call system ('mkdir -p ~/.vim/undo ~/.vim/backup ~/.vim/pack/default/start')
+	echo "Retrieving gruvbox"
+	call system ('git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox')
+	echo "Done. Now sourcing again vimrc"
+	execute "source " . expand("~/.vimrc")
+endif
 filetype plugin indent on "set on filetype detection
 syntax on
 set history=1000
@@ -91,10 +101,6 @@ inoremap <C-k> <C-n>
 inoremap <C-l> <C-p>
 inoremap <C-n> <C-k>
 inoremap <C-p> <C-l>
-cnoremap <C-k> <C-n>
-cnoremap <C-l> <C-p>
-cnoremap <C-n> <C-k>
-cnoremap <C-p> <C-l>
 
 "Make
 "SSH problem -> not populating quickfix list with error

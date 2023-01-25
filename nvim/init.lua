@@ -1,4 +1,6 @@
-print("Loading init file")
+require("fle-blay.autocmd")
+
+vim.cmd("source ~/.vimrc")
 
 local launch_tsserver = function()
 	local autocmd
@@ -16,10 +18,15 @@ local launch_tsserver = function()
 		cmd = {'typescript-language-server', '--stdio'},
 		name = 'tsserver', -- name is log messages
 		root_dir = vim.fn.getcwd(), --where the lsp server will base its workspace
+		-- Get a new ClientCapabilities object describing the LSP client capabilities
+		capabilities = vim.lsp.protocol.make_client_capabilities(),
 	}
 
-	--on_attach is callback(client, bufnr) inwoked when client attaches to a buffer
+	--on_attach is callback(client, bufnr) invoked when client attaches to a buffer
 	config.on_attach = function(client, bufnr)
+		--nvim_exec_autocmds({event}, {*opts})
+		--execute all autocommands for {event} that matches {opts}
+		--pattern defaults to *
 		vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
 	end
 
