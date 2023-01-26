@@ -1,6 +1,6 @@
 set nocompatible
 set background=dark
-set runtimepath+=~/.vim/pack/default/start/gruvbox/ "for neovim to find gruvbox outside .config/nvim
+set runtimepath+=~/.vim/pack/default/start/gruvbox/ "To allow neovim to find gruvbox outside directory ~/.config/nvim
 if filereadable(expand("~/.vim/pack/default/start/gruvbox/colors/gruvbox.vim"))
 	colorscheme gruvbox
 else
@@ -19,6 +19,7 @@ set undodir=~/.vim/undo/,.
 set backup
 set backupdir=~/.vim/backup/,.
 set number
+set relativenumber
 set ruler
 set shiftround "round indent to multiple of shiftwidth
 set autoindent
@@ -26,27 +27,38 @@ set smartindent
 set shiftwidth=4 "number of spaces to used for each step of autoindent
 set tabstop=4 "number of spaces a <TAB> in the file counts for
 set noexpandtab "do not expand tab when indenting with > or <
-set showcmd
+set showcmd "show cmds on bottom right of screen
 set wildmenu
 set hlsearch "highlight previous search pattern
 set incsearch "show what is already matched when typing search pattern
 set backspace=indent,eol,start "allows to backspace over autoindent, line breaks and start of insert
 set hidden "to allow to change buffer without having to save changes
-set relativenumber
 set ignorecase "ignore case while searching
 set smartcase "overrides ignorecase if search patterns contains upper case char
 set wrapmargin=3 "wrap text if 3 char away from right margin
-set textwidth=100 "wrap text if longer than 120 char
+set textwidth=120 "wrap text if longer than 120 char
 set foldcolumn=1 "adds a column to far left to show fold info
 set foldmethod=syntax
 set winwidth=100 "minimal size for current window. Resize at expand of other windows
 set laststatus=2 "always display status bar
 set confirm "Ask to save files instead of failing a command due to unsaved changes
-set cmdheight=2 "Bigger command height to avoid "Press Enter...
+set cmdheight=1 "Bigger command height to avoid "Press Enter... -> reset to 1 for now
 
-"Preparatory Work
-"mkdir -p ~/.vim/undo ~/.vim/backup ~/.vim/pack/default/start
-"git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
+"Find and grep setup
+set path=$PWD/** "find path is only local dir and subdirectories
+set shell=/bin/bash\ -O\ globstar
+au FileType h,c,hpp,cpp,tpp setl path=$PWD/inc,$PWD/src "find will only search in $PWD/inc and $PWD/src
+set wildignore=.git,*.o,*.d "wildmenu results to hide
+set wildignorecase "find will ingnore case
+
+"add all files in order to user grep ##
+function LoadArgs()
+	let fts = ['c', 'h', 'cpp', 'hpp']
+	if index(fts, &filetype) != -1
+		argadd $PWD/inc/*.h?? $PWD/src/*.c??
+		argdedupe
+	endif
+endfunction
 
 "Navigation windows
 nnoremap <Space> <C-W>
@@ -54,35 +66,16 @@ nnoremap <Space> <C-W>
 "Disable hls until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-"Find and grep setup
-set path=. "find path
-set shell=/bin/bash\ -O\ globstar
-
-"add path location for find util
-"au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/** -> to fix
-au FileType h,c,hpp,cpp,tpp,make setl path+=$PWD/inc,$PWD/src
-"add all files in order to user grep ##
-if v:version > 801
-	au FileType h,c if !&diff | argadd! $PWD/inc*/**/*.h $PWD/s*rc*/**/*.c | argdedupe | endif
-	au FileType hpp,cpp,tpp if !&diff | argadd! $PWD/inc*/**/*.?pp $PWD/s*rc*/**/*.cpp | argdedupe | endif
-else
-	au FileType h,c if !&diff | argdelete * | argadd! $PWD/inc*/**/*.h $PWD/s*rc*/**/*.c | endif
-	au FileType hpp,cpp,tpp if !&diff | argdelete * | argadd! $PWD/inc*/**/*.?pp $PWD/s*rc*/**/*.cpp | endif
-endif
-
-set wildignore=.git,*.o,*.d "wildmenu results to hide
-set wildignorecase
-
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
 nnoremap sd :bn<CR>:bdelete#<CR>
-nnoremap sl :ls<CR>:b<space>
+nnoremap <silent> sl :call LoadArgs()<CR>
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
 nnoremap sf :find *
 nnoremap st :tjump /
-nnoremap sg :grep!<Space><Space><Space>##<Left><Left><Left><Left>
+nnoremap sg :call LoadArgs()<CR> \| :grep!<Space><Space><Space>##<Left><Left><Left><Left>
 
 nnoremap ssn :cn<CR>
 nnoremap ssp :cp<CR>
@@ -96,32 +89,19 @@ nnoremap sw :wa<CR>
 "Shell
 nnoremap sb :.w !bash<CR>
 
-"Insert Mode : More ergonomic completion
+"Insert Mode and command mode: More ergonomic completion
 inoremap <C-k> <C-n>
 inoremap <C-l> <C-p>
 inoremap <C-n> <C-k>
 inoremap <C-p> <C-l>
+cnoremap <C-k> <C-n>
+cnoremap <C-l> <C-p>
+cnoremap <C-n> <C-k>
+cnoremap <C-p> <C-l>
 
 "Make
-"SSH problem -> not populating quickfix list with error
-"let &makeprg = 'make $* 1>/dev/null' "& to have a local var
 let &makeprg = 'make $*' "& to have a local var
 nnoremap sm :make<CR>
-
-"Macros
-
-"Lazy HPP rename (So so, need to find a way to reuse capture group or use register as search pattern)
-":1,2s/\(\s\)\@<=\w\{-1,}\(_\)\@=/\=toupper(expand('%:t:r'))/
-"OR
-" :let @c = expand('%:t:r')
-" e newclass.hpp
-":0r oldclass.hpp
-" let @c = 'oldclass'
-" exe '3,$%s/' . @c . '/=expand('%:t:r')/g'
-" %s//\U~/gi
-
-"smart printf. magic command : C-o to send normal mode command while insert
-let @p = '0iprintf(">%<\n", €ýaA);€ýahhbvey2F"pa : €ýaf%a'
 
 "Autocmd for tags files
 autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.tpp :silent !ctags -R
@@ -137,7 +117,6 @@ autocmd BufEnter *.c :setlocal cindent
 " coloured extra whitespaces
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$\| \+\ze\t\| ^\t*\zs \+/
-
 
 " SINGLE KEYS
 " K for man pages. [n]K for specific section

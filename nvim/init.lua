@@ -2,25 +2,49 @@ require("fle-blay.autocmd")
 
 vim.cmd("source ~/.vimrc")
 
-local launch_tsserver = function()
-	local autocmd
-	local filetypes = {
-		'typescript',
-		'javascript',
-		'typescriptreact',
-		'javascriptreact',
-		'typescript.tsx',
-		'javascript.jsx',
-	}
+local make_filetypes = function (language)
+	local filetypes
+	if language == 'ts' then
+		filetypes = {
+			'typescript',
+			'javascript',
+			'typescriptreact',
+			'javascriptreact',
+			'typescript.tsx',
+			'javascript.jsx',
+		}
+	elseif language == 'cpp' then
+		filetypes = {
+			'cpp',
+			'hpp',
+			'tpp',
+		}
+	else
+		print("Make_filetypes error : ", language, "is unknown")
+	end
+	return filetypes
+end
 
-	--config only required field is command
-	local config = {
-		cmd = {'typescript-language-server', '--stdio'},
-		name = 'tsserver', -- name is log messages
-		root_dir = vim.fn.getcwd(), --where the lsp server will base its workspace
-		-- Get a new ClientCapabilities object describing the LSP client capabilities
-		capabilities = vim.lsp.protocol.make_client_capabilities(),
-	}
+local make_config = function (language)
+	local config = {}
+	if language == 'ts' then
+		config.cmd = {'typescript-language-server', '--stdio'}
+		config.name = 'tsserver' -- name is log messages
+	elseif language == 'cpp' then
+		config.cmd = {'clangd'}
+		config.name = 'cppserver' -- name is log messages
+	else
+		print("Make_config error : ", language, "is unknown")
+	end
+	return config
+end
+
+local set_default_config = function(config, filetypes)
+	local autocmd
+
+	config.root_dir = vim.fn.getcwd() --where the lsp server will base its workspace
+	-- Get a new ClientCapabilities object describing the LSP client capabilities
+	config.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 	--on_attach is callback(client, bufnr) invoked when client attaches to a buffer
 	config.on_attach = function(client, bufnr)
@@ -48,8 +72,8 @@ local launch_tsserver = function()
 			client.notify('workspace/didChangeConfiguration', {
 				settings = client.config.settings
 			})
+			print("LSP on_init : Client id is : ", client.id)
 		end
-
 
 		local buf_attach = function()
 			vim.lsp.buf_attach_client(0, client.id)
@@ -74,9 +98,9 @@ local launch_tsserver = function()
 		if vim.v.vim_did_enter == 1 and vim.tbl_contains(filetypes, vim.bo.filetype)
 		then
 			buf_attach()
-			print("LSP: init OK : Attaching current buffer")
+			print("LSP on_init : Init ok and attaching current buffer")
 		else
-			print("LSP: init OK : Current buffer not compatible")
+			print("LSP on_init : Init ok but current buffer not compatible")
 		end
 	end
 
@@ -88,38 +112,34 @@ local launch_tsserver = function()
 	--client_id -> client handle
 	config.on_exit = vim.schedule_wrap(function(code, signal, client_id)
 		vim.api.nvim_del_autocmd(autocmd)
+		print("LSP on_exit : Removed autocmd for buf_attach")
 	end)
+end
 
+--local launch_tsserver = function(filetypes, config)
+local launch_server = function(language)
+	local filetypes = make_filetypes(language)
+	local config = make_config(language)
+
+	set_default_config(config, filetypes)
 	vim.lsp.start_client(config)
-
 end
-
-local launch_cppserver = function()
-	local config = {
-		cmd = {'clangd'},
-		name = 'cppserver', -- name is log messages
-		root_dir = vim.fn.getcwd(), --where the lsp server will base its workspace
-	}
-
-	local client_id = vim.lsp.start_client(config)
-
-	if client_id then
-		vim.lsp.buf_attach_client(0, client_id) -- 1st param is buffer handle, 0 is current
-	end
-end
-
 
 -- creates a new user command with ({name}, {command}, {*opts})
 -- name must begin with a uppercase
 -- desc = 'string' is for listing the command when a lua function is used for {command}
 vim.api.nvim_create_user_command(
-	'LaunchTsserver',
-	launch_tsserver,
-	{desc = 'Starting tsserver'}
-	)
-
-vim.api.nvim_create_user_command(
-	'LaunchCppserver',
-	launch_cppserver,
-	{desc = 'Starting cppserver'}
-	)
+	'LaunchServer',
+	function(var)
+		if (var.args == nil) then print("Need args to launch LSP server") return end
+		print("Launching server " .. var.args)
+		launch_server(var.args)
+	end,
+	{
+		desc = 'Starting server',
+		nargs = 1,
+		complete = function()
+			return {'cpp', 'ts'}
+		end
+	}
+)
