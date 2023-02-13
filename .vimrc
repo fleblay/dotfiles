@@ -55,7 +55,7 @@ set wildignorecase "find will ingnore case
 function LoadArgs()
 	let fts = ['c', 'h', 'cpp', 'hpp']
 	if index(fts, &filetype) != -1
-		argadd $PWD/inc/*.h?? $PWD/src/*.c??
+		argadd $PWD/inc/*.h** $PWD/src/*.c**
 		argdedupe
 	endif
 endfunction
@@ -89,16 +89,6 @@ nnoremap sw :wa<CR>
 "Shell
 nnoremap sb :.w !bash<CR>
 
-"Insert Mode and command mode: More ergonomic completion
-inoremap <C-k> <C-n>
-inoremap <C-l> <C-p>
-inoremap <C-n> <C-k>
-inoremap <C-p> <C-l>
-cnoremap <C-k> <C-n>
-cnoremap <C-l> <C-p>
-cnoremap <C-n> <C-k>
-cnoremap <C-p> <C-l>
-
 "Make
 let &makeprg = 'make $*' "& to have a local var
 nnoremap sm :make<CR>
@@ -117,6 +107,18 @@ autocmd BufEnter *.c :setlocal cindent
 " coloured extra whitespaces
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$\| \+\ze\t\| ^\t*\zs \+/
+
+function Helloer()
+	let l:timeZone = strftime("%H") / 6
+	let l:dayOfWeek = strftime("%u")
+	if l:dayOfWeek > 5
+		echo "Wooow, no working on the Weekend !"
+	else
+		let l:timeMessages = ["morning early bird", "morning sunshine", "afternoon lad", "evening chap"]
+		echo "You again ? Good " .. join(split(l:timeMessages[l:timeZone]), " ") .. " !"
+	endif
+endfunction
+call Helloer()
 
 " SINGLE KEYS
 " K for man pages. [n]K for specific section
