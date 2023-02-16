@@ -60,6 +60,18 @@ function LoadArgs()
 	endif
 endfunction
 
+"autosave
+function AutoSaveBuffer()
+	if !exists("#FocusLost#<buffer>")
+		au FocusLost <buffer> wa | echom "Saved at " .. strftime("%H:%M:%S")
+		echom "Autosave on for current buffer"
+	else
+		echom "Autosave already activated for current buffer"
+	endif
+endfunction
+
+command -nargs=0 Autosave :call AutoSaveBuffer(<f-args>)
+
 "Navigation windows
 nnoremap <Space> <C-W>
 
