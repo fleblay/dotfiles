@@ -15,12 +15,13 @@ vim.api.nvim_create_autocmd('User', {
 		--useful when in need for a "func" option
 		--v:lua.somemod.func(args) same as return somemod.func(...)
 		vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+		bufmap('i', '<C-k>', '<C-x><C-o>') -- USEFULL
 
 		--use language server for tags when possible
 		vim.bo.tagfunc = 'v:lua.vim.lsp.tagfunc'
 
 		--Display hover info about symbol under cursor
-		bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+		bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>') -- USEFULL
 
 		--Jump to definition
 		bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
@@ -38,21 +39,20 @@ vim.api.nvim_create_autocmd('User', {
 		bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 
 		--Displays a functions's signature info
-		bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+		bufmap({'i', 'n'}, '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<cr>') -- USEFULL
 
 		--Show disgnostics in a floating window
 		bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
 
 		--Move to previous diagnostic
-		bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+		bufmap('n', 'ssn', '<cmd>lua vim.diagnostic.goto_prev()<cr>') -- USEFULL
 
 		--Move to next diagnostic
-		bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+		bufmap('n', 'ssp', '<cmd>lua vim.diagnostic.goto_next()<cr>') -- USEFULL
 
-		bufmap('n', 'gc', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+		bufmap('n', 'gc', '<cmd>lua vim.lsp.buf.code_action()<cr>') -- USEFULL
 
 		--No mapping for vim.lsp.buf.rename()
-		--No mapping for vim.lsp.buf.code_action()
 		--No mapping (x mode) for vim.lsp.buf.range_code_action()
 	end
 })
