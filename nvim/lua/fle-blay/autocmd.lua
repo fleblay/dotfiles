@@ -39,7 +39,8 @@ vim.api.nvim_create_autocmd('User', {
 		bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 
 		--Displays a functions's signature info
-		bufmap({'i', 'n'}, '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<cr>') -- USEFULL
+		--bufmap({'i', 'n'}, '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<cr>') -- USEFULL, but prevent from clear noh
+		bufmap('i', '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<cr>') -- USEFULL
 
 		--Show disgnostics in a floating window
 		bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')

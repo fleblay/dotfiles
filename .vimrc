@@ -43,7 +43,7 @@ set winwidth=100 "minimal size for current window. Resize at expand of other win
 set laststatus=2 "always display status bar
 set confirm "Ask to save files instead of failing a command due to unsaved changes
 set cmdheight=1 "Bigger command height to avoid "Press Enter... -> reset to 1 for now
-set completeopt-=preview "Disable scratch preview when using custom omnifunc (mostly usefull for lsp)
+set completeopt=menu,longest "Disable scratch preview when using custom omnifunc (mostly usefull for lsp)
 
 "Find and grep setup
 set path=$PWD/** "find path is only local dir and subdirectories
@@ -103,8 +103,12 @@ nnoremap sw :wa<CR>
 nnoremap sb :.w !bash<CR>
 
 "Make
-let &makeprg = 'make $*' "& to have a local var
 nnoremap sm :make<CR>
+let &makeprg = 'make $*' "& to have a local var
+"Use of let &var instead of setlocal because expand is not possible with set
+"au FileType typescript compiler tsc | set makeprg=npx\ tsc -> NOT OK
+"au FileType typescript let &makeprg = expand('npx\ tsc\ %') | setl errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m -> OK but full manual
+au FileType typescript compiler tsc | let &makeprg = expand('npx\ tsc\ %')
 
 "Autocmd for tags files
 autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.tpp :silent !ctags -R

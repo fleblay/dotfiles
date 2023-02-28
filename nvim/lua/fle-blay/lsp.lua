@@ -33,6 +33,7 @@ make_config = function (language)
 	local config = {}
 	if language == 'ts' then
 		config.init_options = { hostInfo = 'neovim',
+		completionDisableFilterText = true,
 		--[[
 		tsserver = { logDirectory = vim.fn.getcwd(),
 		logVerbosity = 'verbose'
