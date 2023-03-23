@@ -17,6 +17,7 @@ set history=1000
 set undofile
 set undodir=~/.vim/undo/,.
 set backup
+set backupcopy=yes "When doing backups, create a copy of file and overwrite original to preserve links instead of renaming
 set backupdir=~/.vim/backup/,.
 set number
 set relativenumber
@@ -82,8 +83,9 @@ nnoremap <C-L> :nohl<CR><C-L>
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
+nnoremap se :Explore<CR>
 nnoremap sd :bn<CR>:bdelete#<CR>
-nnoremap <silent> sl :call LoadArgs()<CR>
+nnoremap sl :ls<CR>:b 
 nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
 nnoremap sf :find *
