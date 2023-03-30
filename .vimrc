@@ -84,6 +84,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
 nnoremap se :Explore<CR>
+nnoremap su gUaw
 nnoremap sd :bn<CR>:bdelete#<CR>
 nnoremap sl :ls<CR>:b 
 nnoremap sn :bn<CR>
@@ -103,6 +104,14 @@ nnoremap sw :wa<CR>
 
 "Shell
 nnoremap sb :.w !bash<CR>
+
+"Diff Mode Mapping
+if &diff
+	nnoremap sl :diffget LO<CR>
+	nnoremap sr :diffget RE<CR>
+	nnoremap sb :diffget BA<CR>
+	nnoremap sq :cquit<CR>
+endif
 
 "Make
 nnoremap sm :make<CR>
