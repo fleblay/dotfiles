@@ -47,20 +47,36 @@ set cmdheight=1 "Bigger command height to avoid "Press Enter... -> reset to 1 fo
 set completeopt=menu,longest "Disable scratch preview when using custom omnifunc (mostly usefull for lsp)
 
 "Find and grep setup
-set path=$PWD/** "find path is only local dir and subdirectories
-set shell=/bin/bash\ -O\ globstar
+if isdirectory(expand("$PWD/src"))
+	set path=$PWD/src/**
+	echom "Search path is src/**"
+else
+	set path=$PWD/**
+	echom "Search path is pwd/**"
+endif
+
+"set shell=/bin/bash\ -O\ globstar
 au FileType h,c,hpp,cpp,tpp setl path=$PWD/inc,$PWD/src "find will only search in $PWD/inc and $PWD/src
 set wildignore=.git,*.o,*.d "wildmenu results to hide
 set wildignorecase "find will ingnore case
 
 "add all files in order to user grep ##
 function LoadArgs()
-	let fts = ['c', 'h', 'cpp', 'hpp']
-	if index(fts, &filetype) != -1
+	let fts_c = ['c', 'h', 'cpp', 'hpp']
+	let fts_ts = ['typescript', 'typescriptreact']
+	if index(fts_c, &filetype) != -1
 		argadd $PWD/inc/*.h** $PWD/src/*.c**
+		argdedupe
+	elseif index(fts_ts, &filetype) != -1
+		argadd $PWD/src/*.ts*
+		argdedupe
+	else
+		echom "Warning, args is now populated with all files from src !"
+		argadd $PWD/src/**/*.*
 		argdedupe
 	endif
 endfunction
+command -nargs=0 LoadArgs :call LoadArgs(<f-args>)
 
 "autosave
 function AutoSaveBuffer()
