@@ -68,7 +68,7 @@ function LoadArgs()
 		argadd $PWD/inc/*.h** $PWD/src/*.c**
 		argdedupe
 	elseif index(fts_ts, &filetype) != -1
-		argadd $PWD/src/*.ts*
+		argadd $PWD/src/**/*.ts*
 		argdedupe
 	else
 		echom "Warning, args is now populated with all files from src !"
