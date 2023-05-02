@@ -57,7 +57,7 @@ endif
 
 "set shell=/bin/bash\ -O\ globstar
 au FileType h,c,hpp,cpp,tpp setl path=$PWD/inc,$PWD/src "find will only search in $PWD/inc and $PWD/src
-set wildignore=.git,*.o,*.d "wildmenu results to hide
+set wildignore=.git,*.o,*.d,*/node_modules/* "wildmenu results to hide
 set wildignorecase "find will ingnore case
 
 "add all files in order to user grep ##
