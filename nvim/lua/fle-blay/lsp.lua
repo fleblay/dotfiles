@@ -50,6 +50,11 @@ make_config = function (language)
 		config.name = 'htmlserver' -- name is log messages
 	else
 		print("Make_config error : ", language, "is unknown")
+		return nil
+	end
+	if (os.execute("sh -c command -v " .. config.cmd[1]) ~= 0) then
+		print("Make_config error : unable to find lsp cmd :", config.cmd[1])
+		return nil
 	end
 	return config
 end
