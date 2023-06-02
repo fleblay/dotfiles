@@ -1,15 +1,34 @@
 set nocompatible
+set t_Co=256
 set background=dark
 set runtimepath+=~/.vim/pack/default/start/gruvbox/ "To allow neovim to find gruvbox outside directory ~/.config/nvim
 if filereadable(expand("~/.vim/pack/default/start/gruvbox/colors/gruvbox.vim"))
 	colorscheme gruvbox
 else
 	echo "Unable to locate gruvbox colorscheme -> Making preparatory work"
-	call system ('mkdir -p ~/.vim/undo ~/.vim/backup ~/.vim/pack/default/start')
+	let output = system('mkdir -p ~/.vim/undo ~/.vim/backup ~/.vim/pack/default/start')
+	if v:shell_error == 0
+		echo "Done"
+	else
+		echo "Failure creating vim directories"
+		finish
+	endif
 	echo "Retrieving gruvbox"
-	call system ('git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox')
+	let git = system('command git --version')
+	if v:shell_error != 0
+		echo "Error : git is missing"
+		finish
+	endif
+	let output = system('git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox')
+	if v:shell_error == 0
+		echo "Done"
+	else
+		echo "Failure downloading theme"
+		finish
+	endif
 	echo "Done. Now sourcing again vimrc"
 	execute "source " . expand("~/.vimrc")
+	finish
 endif
 filetype plugin indent on "set on filetype detection
 syntax on
@@ -61,22 +80,25 @@ set wildignore=.git,*.o,*.d,*/node_modules/* "wildmenu results to hide
 set wildignorecase "find will ingnore case
 
 "add all files in order to user grep ##
-function LoadArgs()
-	let fts_c = ['c', 'h', 'cpp', 'hpp']
-	let fts_ts = ['typescript', 'typescriptreact']
-	if index(fts_c, &filetype) != -1
-		argadd $PWD/inc/*.h** $PWD/src/*.c**
-		argdedupe
-	elseif index(fts_ts, &filetype) != -1
-		argadd $PWD/src/**/*.ts*
-		argdedupe
-	else
-		echom "Warning, args is now populated with all files from src !"
-		argadd $PWD/src/**/*.*
-		argdedupe
-	endif
-endfunction
-command -nargs=0 LoadArgs :call LoadArgs(<f-args>)
+"function LoadArgs()
+"	let fts_c = ['c', 'h', 'cpp', 'hpp']
+"	let fts_ts = ['typescript', 'typescriptreact']
+"	if index(fts_c, &filetype) != -1
+"		argadd $PWD/inc/*.h** $PWD/src/*.c**
+"		argdedupe
+"	elseif index(fts_ts, &filetype) != -1
+"		argadd $PWD/src/**/*.ts*
+"		argdedupe
+"	else
+"		echom "Warning, args is now populated with all files from src !"
+"		argadd $PWD/src/**/*.*
+"		argdedupe
+"	endif
+"endfunction
+"
+"command -nargs=0 LoadArgs :call LoadArgs(<f-args>)
+"
+"nnoremap sg :call LoadArgs()<CR> \| :grep!<Space><Space><Space>##<Left><Left><Left><Left>
 
 "autosave
 function AutoSaveBuffer()
@@ -107,13 +129,12 @@ nnoremap sn :bn<CR>
 nnoremap sp :bp<CR>
 nnoremap sf :find *
 nnoremap st :tjump /
-nnoremap sg :call LoadArgs()<CR> \| :grep!<Space><Space><Space>##<Left><Left><Left><Left>
 
-nnoremap ssn :cn<CR>
-nnoremap ssp :cp<CR>
-nnoremap ssg :.cc<CR>
-nnoremap sso :copen<CR>
-nnoremap ssc :cclose<CR>
+nnoremap scn :cn<CR>
+nnoremap scp :cp<CR>
+nnoremap scg :.cc<CR>
+nnoremap sco :copen<CR>
+nnoremap scc :cclose<CR>
 
 "Save
 nnoremap sw :wa<CR>
