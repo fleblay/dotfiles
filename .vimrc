@@ -44,9 +44,9 @@ set ruler
 set shiftround "round indent to multiple of shiftwidth
 set autoindent
 set smartindent
-set shiftwidth=4 "number of spaces to used for each step of autoindent
-set tabstop=4 "number of spaces a <TAB> in the file counts for
-set noexpandtab "do not expand tab when indenting with > or <
+set shiftwidth=2 "number of spaces to used for each step of autoindent
+set tabstop=2 "number of spaces a <TAB> in the file counts for
+set expandtab "do expand tab when indenting with > or <
 set showcmd "show cmds on bottom right of screen
 set wildmenu
 set hlsearch "highlight previous search pattern
@@ -59,11 +59,12 @@ set wrapmargin=3 "wrap text if 3 char away from right margin
 set textwidth=120 "wrap text if longer than 120 char
 set foldcolumn=1 "adds a column to far left to show fold info
 set foldmethod=syntax
-set winwidth=100 "minimal size for current window. Resize at expand of other windows
+"set winwidth=100 "minimal size for current window. Resize at expand of other windows -> conflict with nvim-tree
 set laststatus=2 "always display status bar
 set confirm "Ask to save files instead of failing a command due to unsaved changes
 set cmdheight=1 "Bigger command height to avoid "Press Enter... -> reset to 1 for now
 set completeopt=menu,longest "Disable scratch preview when using custom omnifunc (mostly usefull for lsp)
+let mapleader = "\<Space>"
 
 "Find and grep setup
 if isdirectory(expand("$PWD/src"))
@@ -113,7 +114,7 @@ endfunction
 command -nargs=0 Autosave :call AutoSaveBuffer(<f-args>)
 
 "Navigation windows
-nnoremap <Space> <C-W>
+nnoremap <leader>w <C-W>
 
 "Disable hls until next search
 nnoremap <C-L> :nohl<CR><C-L>
@@ -121,7 +122,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
-nnoremap se :Explore<CR>
+"nnoremap se :Explore<CR> -> nvim-tree instead
 nnoremap su gUaw
 nnoremap sd :bn<CR>:bdelete#<CR>
 nnoremap sl :ls<CR>:b 
