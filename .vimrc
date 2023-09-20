@@ -80,27 +80,6 @@ au FileType h,c,hpp,cpp,tpp setl path=$PWD/inc,$PWD/src "find will only search i
 set wildignore=.git,*.o,*.d,*/node_modules/* "wildmenu results to hide
 set wildignorecase "find will ingnore case
 
-"add all files in order to user grep ##
-"function LoadArgs()
-"	let fts_c = ['c', 'h', 'cpp', 'hpp']
-"	let fts_ts = ['typescript', 'typescriptreact']
-"	if index(fts_c, &filetype) != -1
-"		argadd $PWD/inc/*.h** $PWD/src/*.c**
-"		argdedupe
-"	elseif index(fts_ts, &filetype) != -1
-"		argadd $PWD/src/**/*.ts*
-"		argdedupe
-"	else
-"		echom "Warning, args is now populated with all files from src !"
-"		argadd $PWD/src/**/*.*
-"		argdedupe
-"	endif
-"endfunction
-"
-"command -nargs=0 LoadArgs :call LoadArgs(<f-args>)
-"
-"nnoremap sg :call LoadArgs()<CR> \| :grep!<Space><Space><Space>##<Left><Left><Left><Left>
-
 "autosave
 function AutoSaveBuffer()
 	if !exists("#FocusLost#<buffer>")
@@ -122,7 +101,6 @@ nnoremap <C-L> :nohl<CR><C-L>
 "Buffer, Quickfix list, tag and file navigation
 nnoremap s <Nop>
 nnoremap sa :b#<CR>
-"nnoremap se :Explore<CR> -> nvim-tree instead
 nnoremap su gUaw
 nnoremap sd :bn<CR>:bdelete#<CR>
 nnoremap sl :ls<CR>:b 
@@ -144,6 +122,7 @@ nnoremap sw :wa<CR>
 nnoremap sb :.w !bash<CR>
 
 "Diff Mode Mapping
+"use ]c and [c to jump to next/previous conflict
 if &diff
 	nnoremap sl :diffget LO<CR>
 	nnoremap sr :diffget RE<CR>
@@ -156,7 +135,6 @@ nnoremap sm :make<CR>
 let &makeprg = 'make $*' "& to have a local var
 "Use of let &var instead of setlocal because expand is not possible with set
 "au FileType typescript compiler tsc | set makeprg=npx\ tsc -> NOT OK
-"au FileType typescript let &makeprg = expand('npx\ tsc\ %') | setl errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m -> OK but full manual
 au FileType typescript compiler tsc | let &makeprg = expand('npx\ tsc\ %')
 
 "Autocmd for tags files
@@ -169,10 +147,6 @@ autocmd BufEnter *.tpp :setlocal filetype=cpp
 
 "Set cindent for c files
 autocmd BufEnter *.c :setlocal cindent
-
-" coloured extra whitespaces
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$\| \+\ze\t\| ^\t*\zs \+/
 
 function Helloer()
 	let l:timeZone = strftime("%H") / 6
