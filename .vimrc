@@ -19,6 +19,8 @@ else
 		echo "Error : git is missing"
 		finish
 	endif
+  let output = system("git config --global mergetool vim")
+  let output = system("git config --gloabal mergetool.vim.cmd 'vim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"'")
 	let output = system('git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox')
 	if v:shell_error == 0
 		echo "Done"
